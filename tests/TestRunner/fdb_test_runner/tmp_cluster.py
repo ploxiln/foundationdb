@@ -7,9 +7,9 @@ import subprocess
 import sys
 from pathlib import Path
 
-from cluster_args import CreateTmpFdbClusterArgParser
-from local_cluster import LocalCluster, TLSConfig
-from test_util import random_alphanum_string
+from .cluster_args import CreateTmpFdbClusterArgParser
+from .local_cluster import LocalCluster, TLSConfig
+from .test_util import random_alphanum_string
 
 
 class TempCluster(LocalCluster):
@@ -77,7 +77,7 @@ class TempCluster(LocalCluster):
                 pass
 
 
-if __name__ == "__main__":
+def main():
     script_desc = """
     This script automatically configures a temporary local cluster on the machine
     and then calls a command while this cluster is running. As soon as the command
@@ -189,3 +189,7 @@ if __name__ == "__main__":
                     print(f.read())
 
     sys.exit(errcode)
+
+
+if __name__ == "__main__":
+    main()
