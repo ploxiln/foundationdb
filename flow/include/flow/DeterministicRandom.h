@@ -38,14 +38,17 @@
 class SWIFT_CXX_REF_DETERMINISTICRANDOM DeterministicRandom final : public IRandom,
                                                                     public ReferenceCounted<DeterministicRandom> {
 private:
-	std::mt19937 random;
+	// Use boost::random::mt19937 to get consistent output across
+	// different compilers and therefore across different C++ standard
+	// library implementations.
+	boost::random::mt19937_64 rng;
 	uint64_t next;
 	bool useRandLog;
 
 	uint64_t gen64();
 
 public:
-	DeterministicRandom(uint32_t seed, bool useRandLog = false);
+	DeterministicRandom(uint64_t seed, bool useRandLog = false);
 	double random01() override;
 	int randomInt(int min, int maxPlusOne) override;
 	int64_t randomInt64(int64_t min, int64_t maxPlusOne) override;
